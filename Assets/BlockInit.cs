@@ -37,8 +37,6 @@ public class BlockInit : MonoBehaviour {
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.name == Player.gameObject.name){
-            Debug.Log("collision.gameObject.name " + collision.gameObject.name);
-            Debug.Log("Player.gameObject.name " + Player.gameObject.name);
             GameManager.state = GameState.GameOver;
             Time.timeScale = 0;
         }

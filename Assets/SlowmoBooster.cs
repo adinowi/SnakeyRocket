@@ -3,29 +3,46 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SlowmoBooster : MonoBehaviour, BoosterCommand {
+    private Animator animator;
+    private Sprite firstSprite;
+
     public void execute()
     {
-        GetComponent<Animator>().enabled = true;
+        animator.enabled = true;
         Time.timeScale = 0.5f;
         StartCoroutine("waitFiveSeconds");
     }
 
     // Use this for initialization
-    void Start () {
-        GetComponent<Animator>().enabled = false;
+    void Start ()
+    {
+        firstSprite = GetComponent<SpriteRenderer>().sprite;
+        animator = GetComponent<Animator>();
+        animator.enabled = false;
     }
 	
 	// Update is called once per frame
-	void Update () {
-		
-	}
+	void Update ()
+    {
+        if (GameManager.state == GameState.GameOver && animator.enabled == true)
+        {
+            gameObject.SetActive(false);
+            GetComponent<SpriteRenderer>().sprite = firstSprite;
+            animator.enabled = false;
+        }
+
+    }
 
     private IEnumerator waitFiveSeconds()
     {
         yield return new WaitForSecondsRealtime(5f);
-        Time.timeScale = 1f;
-        gameObject.SetActive(false);
-        GetComponent<Animator>().enabled = false;
+        if (GameManager.state != GameState.GameOver)
+        {
+            Time.timeScale = 1f;
+            gameObject.SetActive(false);
+        }
+        GetComponent<SpriteRenderer>().sprite = firstSprite;
+        animator.enabled = false;
         int quantity = PlayerPrefs.GetInt(ShopSystem.SLOWMO_KEY);
         quantity -= 1;
         PlayerPrefs.SetInt(ShopSystem.SLOWMO_KEY, quantity);

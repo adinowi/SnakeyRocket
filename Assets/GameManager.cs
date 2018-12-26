@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour {
         nextLife = true;
         intializeShopValues();
         initBoosters();
+        activeBoosters(false);
 
     }
 	
@@ -47,6 +48,7 @@ public class GameManager : MonoBehaviour {
             if(!continueMenu.active)
             {
                 continueMenu.SetActive(true);
+                activeBoosters(false);
                 if (nextLife)
                 {
                     ContinueButton.gameObject.SetActive(true);
@@ -62,6 +64,7 @@ public class GameManager : MonoBehaviour {
     public void continueGame()
     {
         continueMenu.SetActive(false);
+        activeBoosters(true);
         nextLife = false;
         player.GetComponent<PolygonCollider2D>().enabled = false;
         state = GameState.Playing;
@@ -80,6 +83,8 @@ public class GameManager : MonoBehaviour {
 
     public void startGame()
     {
+        initBoosters();
+        activeBoosters(true);
         state = GameState.Playing;
         Time.timeScale = 1;
         StartMenu.SetActive(false);
@@ -154,14 +159,24 @@ public class GameManager : MonoBehaviour {
         state = GameState.Playing;
         continueMenu.SetActive(false);
         initBoosters();
+        activeBoosters(true);
         score = 0;
         Time.timeScale = 1;
+        nextLife = true;
     }
 
     public void backToMenu()
     {
         restartGame();
+        state = GameState.NewGame;
         Time.timeScale = 0;
         StartMenu.SetActive(true);
+    }
+
+    private void activeBoosters(bool active)
+    {
+        ImmutableBooster.GetComponent<CircleCollider2D>().enabled = active;
+        SlowmoBooster.GetComponent<CircleCollider2D>().enabled = active;
+        DoublePointsBooster.GetComponent<CircleCollider2D>().enabled = active;
     }
 }

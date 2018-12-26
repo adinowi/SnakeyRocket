@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class ImmutableBooster : MonoBehaviour, BoosterCommand {
     public GameObject player;
+    private Animator animator;
+    private Sprite firstSprite;
+
     public void execute()
     {
-        GetComponent<Animator>().enabled = true;
+        animator.enabled = true;
         player.GetComponent<PolygonCollider2D>().enabled = false;
         StartCoroutine("waitFiveSeconds");
 
@@ -14,20 +17,32 @@ public class ImmutableBooster : MonoBehaviour, BoosterCommand {
 
     // Use this for initialization
     void Start () {
-        GetComponent<Animator>().enabled = false;
-	}
+        firstSprite = GetComponent<SpriteRenderer>().sprite;
+        animator = GetComponent<Animator>();
+        animator.enabled = false;
+    }
 	
 	// Update is called once per frame
 	void Update () {
-
+        if (GameManager.state == GameState.GameOver && animator.enabled == true)
+        {
+            player.GetComponent<PolygonCollider2D>().enabled = true;
+            gameObject.SetActive(false);
+            GetComponent<SpriteRenderer>().sprite = firstSprite;
+            animator.enabled = false;
+        }
     }
 
     private IEnumerator waitFiveSeconds()
     {
         yield return new WaitForSecondsRealtime(5f);
-        player.GetComponent<PolygonCollider2D>().enabled = true;
-        gameObject.SetActive(false);
-        GetComponent<Animator>().enabled = false;
+        if (GameManager.state != GameState.GameOver)
+        {
+            player.GetComponent<PolygonCollider2D>().enabled = true;
+            gameObject.SetActive(false);
+        }
+        GetComponent<SpriteRenderer>().sprite = firstSprite;
+        animator.enabled = false;
         int quantity = PlayerPrefs.GetInt(ShopSystem.IMMUTABLE_KEY);
         quantity -= 1;
         PlayerPrefs.SetInt(ShopSystem.IMMUTABLE_KEY, quantity);

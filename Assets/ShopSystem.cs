@@ -22,9 +22,10 @@ public class ShopSystem : MonoBehaviour {
     public const string COINS_KEY = "coins";
 
     // Use this for initialization
-    void Start () {
+    void Start ()
+    {
 
-		if(!PlayerPrefs.HasKey(COINS_KEY))
+        if (!PlayerPrefs.HasKey(COINS_KEY))
         {
             PlayerPrefs.SetInt(COINS_KEY, 0);
         }
@@ -34,16 +35,20 @@ public class ShopSystem : MonoBehaviour {
         ImmutablePrice.text = IMMUTABLE_PRICE.ToString();
         SlowmoPrice.text = SLOWMO_PRICE.ToString();
         DoublePointsPrice.text = DOUBLE_POINTS_PRICE.ToString();
+        initQuantity();
 
+    }
+
+    private void initQuantity()
+    {
         ImmutableQuantity.text = PlayerPrefs.GetInt(IMMUTABLE_KEY).ToString();
         SlowmoQuantity.text = PlayerPrefs.GetInt(SLOWMO_KEY).ToString();
         DoublePointsQuantity.text = PlayerPrefs.GetInt(DOUBLE_POINTS_KEY).ToString();
-
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
+
+    // Update is called once per frame
+    void Update () {
+        initQuantity();
 	}
 
     private void buyProduct(string key, int price, Text quantityText)
