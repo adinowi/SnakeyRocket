@@ -34,6 +34,7 @@ public class CoinController : MonoBehaviour {
             PlayerPrefs.SetInt(ShopSystem.COINS_KEY, coins + 1);
             Debug.Log(collision.gameObject.name);
             audioSource.Play();
+            this.gameObject.GetComponent<CircleCollider2D>().enabled = false;
             GetComponent<Renderer>().enabled = false;
             StartCoroutine("waitTwoSeconds");
         }

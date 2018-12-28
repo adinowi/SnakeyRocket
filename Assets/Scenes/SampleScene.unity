@@ -465,8 +465,6 @@ MonoBehaviour:
   SlowmoBooster: {fileID: 1148224883}
   DoublePointsBooster: {fileID: 932433765}
   ContinueButton: {fileID: 1394540349}
-  startMenuMusic: {fileID: 1172861785206568, guid: 49ec8f0818c8b9b488f52979966dc31f,
-    type: 2}
 --- !u!114 &109719253
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1366,7 +1364,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf0df30258c0cd841b9ec1c237b977bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MenuMusic: {fileID: 8300000, guid: c391f53ac3f329d4aa8eef99604f26ab, type: 3}
+  MenuMusic: {fileID: 8300000, guid: f5fe1c7150dc21144bc704d6c8ebe908, type: 3}
   PlayingMusic: {fileID: 8300000, guid: df0513f19d6e0b348938085b16cf081c, type: 3}
 --- !u!20 &519420031
 Camera:
