@@ -23,7 +23,6 @@ public class PlayerController : MonoBehaviour {
         halfWidth = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, 0f)).x;
         oneQuarterOfWorldWidth = halfWidth / 2;
         renderer = Player.GetComponent<SpriteRenderer>();
-        
     }
 
     // Update is called once per frame

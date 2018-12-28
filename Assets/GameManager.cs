@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour {
     public GameObject DoublePointsBooster;
     public Button ContinueButton;
     private bool nextLife;
+    public GameObject startMenuMusic;
 
     // Use this for initialization
     void Start () {
@@ -38,6 +39,7 @@ public class GameManager : MonoBehaviour {
         intializeShopValues();
         initBoosters();
         activeBoosters(false);
+        startMenuMusic.GetComponent<AudioSource>().Play();
 
     }
 	
