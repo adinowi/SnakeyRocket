@@ -25,6 +25,8 @@ public class GameManager : MonoBehaviour {
     public GameObject DoublePointsBooster;
     public Button ContinueButton;
     private bool nextLife;
+    public Text HighScore;
+    public Text ScoreText;
 
     // Use this for initialization
     void Start () {
@@ -38,6 +40,10 @@ public class GameManager : MonoBehaviour {
         intializeShopValues();
         initBoosters();
         activeBoosters(false);
+        if (!PlayerPrefs.HasKey("highScore"))
+        {
+            PlayerPrefs.SetInt("highScore", 0);
+        }
 
     }
 	
@@ -49,6 +55,16 @@ public class GameManager : MonoBehaviour {
             {
                 continueMenu.SetActive(true);
                 activeBoosters(false);
+                int highScore = PlayerPrefs.GetInt("highScore");
+
+                if (score > highScore)
+                {
+                    PlayerPrefs.SetInt("highScore", score);
+                }
+
+                HighScore.text = PlayerPrefs.GetInt("highScore").ToString();
+                ScoreText.text = score.ToString();
+
                 if (nextLife)
                 {
                     ContinueButton.gameObject.SetActive(true);
