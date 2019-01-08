@@ -8,17 +8,24 @@ public class BlockInit : MonoBehaviour {
     public GameObject Player;
     private bool addedPoint = false;
     private double playerPosition;
-    private Rigidbody2D rigidbody2D;
+    protected Rigidbody2D rigidbody2D;
 
     // Use this for initialization
     void Start () {
+        initBlock();
+    }
+
+    protected void initBlock()
+    {
         playerPosition = Player.transform.position.y - Player.GetComponent<SpriteRenderer>().size.y / 4;
         rigidbody2D = GetComponent<Rigidbody2D>();
         rigidbody2D.velocity = new Vector2(0, -2.25f);
     }
-	
-	// Update is called once per frame
-	void Update () {
+    
+
+
+    // Update is called once per frame
+    void Update () {
 		position = Camera.main.WorldToViewportPoint(transform.position);
         if (position.y < -0.5)
         {
